@@ -54,6 +54,11 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import net.posprinter.posprinterface.IMyBinder;
+import net.posprinter.posprinterface.TaskCallback;
+import net.posprinter.service.PosprinterService;
+import net.posprinter.utils.PosPrinterDev;
+
 public class BlueThermalPrinterPlugin implements FlutterPlugin, ActivityAware,MethodCallHandler, RequestPermissionsResultListener {
 
   private static final String TAG = "BThermalPrinterPlugin";
@@ -81,6 +86,19 @@ public class BlueThermalPrinterPlugin implements FlutterPlugin, ActivityAware,Me
 
   public BlueThermalPrinterPlugin() {
   }
+
+  ServiceConnection mSerconnection = new ServiceConnection() {
+    @Override
+    public void onServiceConnected(ComponentName name, IBinder service) {
+      myBinder = (IMyBinder) service;
+      Log.e(TAG, "connect");
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName name) {
+      Log.e(TAG, "disconnect");
+    }
+  };
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
@@ -126,6 +144,10 @@ public class BlueThermalPrinterPlugin implements FlutterPlugin, ActivityAware,Me
       Log.i(TAG, "setup");
       this.activity = activity;
       this.context = application;
+
+      Intent intent = new Intent(activity, PosprinterService.class);
+      activity.bindService(intent, mSerconnection, activity.BIND_AUTO_CREATE);
+
       channel = new MethodChannel(messenger, NAMESPACE + "/methods");
       channel.setMethodCallHandler(this);
       stateChannel = new EventChannel(messenger, NAMESPACE + "/state");
