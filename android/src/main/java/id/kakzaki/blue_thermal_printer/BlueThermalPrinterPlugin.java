@@ -313,12 +313,7 @@ public class BlueThermalPrinterPlugin implements FlutterPlugin, ActivityAware,Me
         break;
 
       case "write":
-        if (arguments.containsKey("message")) {
-          String message = (String) arguments.get("message");
-          write(result, message);
-        } else {
-          result.error("invalid_argument", "argument 'message' not found", null);
-        }
+        write(result, arguments);
         break;
 
       case "writeBytes":
@@ -511,7 +506,7 @@ public class BlueThermalPrinterPlugin implements FlutterPlugin, ActivityAware,Me
         }
       });
     }
-    return true;
+    return;
 
 //    if (THREAD == null) {
 //      result.error("disconnection_error", "not connected", null);
@@ -533,14 +528,14 @@ public class BlueThermalPrinterPlugin implements FlutterPlugin, ActivityAware,Me
    * @param result  result
    * @param message message
    */
-  private void write(Result result, String message) {
+  private void write(Result result, Map<String, Object> args) {
     if (!IS_CONNECT) {
       result.error("write_error", "not connected", null);
       return;
     }
     if (args.containsKey("config") && args.containsKey("data")) {
       final Map<String,Object> config = (Map<String,Object>) args.get("config");
-      final List<Map<String,Objec>> litst = (List<Map<String,Object>>) args.get("data");
+      final List<Map<String,Object>> list = (List<Map<String,Object>>) args.get("data");
       if(list == null) return;
 
       myBinder.WriteSendData(new TaskCallback() {
@@ -587,10 +582,10 @@ public class BlueThermalPrinterPlugin implements FlutterPlugin, ActivityAware,Me
   }
 
   private void printNewLine(Result result) {
-    if (THREAD == null) {
-      result.error("write_error", "not connected", null);
-      return;
-    }
+//    if (THREAD == null) {
+//      result.error("write_error", "not connected", null);
+//      return;
+//    }
 //    try {
 //      THREAD.write(PrinterCommands.FEED_LINE);
       printTest(result);
