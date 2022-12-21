@@ -47,7 +47,7 @@ public class PrintQRCode {
             } else if("barcode".equals(type)) {
                 list.add(DataForSendToPrinterTSC.barCode(x, y, "128", 100, 1, rotation, 2, 2, content));
             } else if("qrcode".equals(type)) {
-                list.add(DataForSendToPrinterTSC.qrCode(x, y, "M", size, "A", rotation, "M1", "S3", content));
+                list.add(DataForSendToPrinterTSC.qrCode(x, y, "M", size, "A", rotation, "M2", "S3", content));
             } else if("image".equals(type)) {
                 byte[] bytes = Base64.decode(content, Base64.DEFAULT);
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
