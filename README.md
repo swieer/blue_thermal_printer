@@ -1,5 +1,9 @@
 # blue_thermal_printer
+### 支持Xprinter
 
+fork from https://github.com/kakzaki/blue_thermal_printer.git
+
+some code from https://github.com/e3m-software/bluetooth_x_print.git
 
 [![pub package](https://img.shields.io/pub/v/blue_thermal_printer.svg)](https://pub.dev/packages/blue_thermal_printer)
 [![pub package](https://img.shields.io/twitter/follow/kakzaki_id.svg?colorA=1da1f2&colorB=&label=Follow%20on%20Twitter)](https://twitter.com/kakzaki_id)
