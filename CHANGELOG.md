@@ -1,3 +1,6 @@
+## 1.2.4
+* 支持xprinter
+
 ## 1.2.3
 * demonstrate using enum for readability
 * drawer pin by erica
